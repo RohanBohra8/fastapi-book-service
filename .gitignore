@@ -1,0 +1,37 @@
+# Byte-compiled / cached
+src/__pycache__/
+src/books/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+*.env
+
+# FastAPI specific
+instance/
+
+# Database files
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependency files
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# OS files
+.DS_Store
+Thumbs.db
