@@ -10,7 +10,7 @@ version = "v1"
 # Using lifespan instead of @app.on_event
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()  # Initialize the database
+    await init_db()  # Initialize the database
     print("Server is starting...")
     yield  # Continue running the application
     print("server is stopping")
@@ -22,6 +22,7 @@ app = FastAPI(
     version = version,
     lifespan = lifespan
 )
+
 
 
 # include the router we created in the rotues.py file so that the app can use it

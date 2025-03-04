@@ -35,3 +35,7 @@ poetry.lock
 # OS files
 .DS_Store
 Thumbs.db
+
+books.db
+books.db-journal
+
