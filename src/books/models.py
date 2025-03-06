@@ -3,7 +3,6 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
-# declarative_base() is a function that provides base class for our database models
 Base = declarative_base()
 
 class Author(Base):
@@ -17,18 +16,7 @@ class Author(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     
     books = relationship("Book", back_populates="author", cascade="all, delete")
-     
-    '''
-    books = relationship("Book",
-    secondary=Table(
-        "author_book",
-        Base.metadata,
-        Column("author_id", Integer, ForeignKey("authors.id"), primary_key = True),
-        Column("id", Integer, ForeignKey("books.author_id"), primary_key = True)
-        ),
-    back_populates="author", cascade="all, delete")
-    '''
-    
+ 
     def __repr__(self):
         return f"<Author(name={self.name}, id={self.id})>"
     
@@ -60,3 +48,17 @@ class Book(Base):
 #     Column('author_id', Integer, ForeignKey('authors.id')),
 #     Column('book_id', Integer, ForeignKey('books.id'))
 # )
+
+
+    
+    '''
+    books = relationship("Book",
+    secondary=Table(
+        "author_book",
+        Base.metadata,
+        Column("author_id", Integer, ForeignKey("authors.id"), primary_key = True),
+        Column("id", Integer, ForeignKey("books.author_id"), primary_key = True)
+        ),
+    back_populates="author", cascade="all, delete")
+    '''
+    

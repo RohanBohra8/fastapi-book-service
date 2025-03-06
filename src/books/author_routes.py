@@ -1,17 +1,15 @@
 from fastapi import APIRouter, status, Depends
 from typing import List
 from sqlalchemy.orm import Session
-from sqlalchemy.future import select
 from fastapi.exceptions import HTTPException
-
 from src.database import SessionLocal
+
 from src.books.schemas import Author, AuthorUpdateModel
 from src.books.models import Author as AuthorModel
 from src.books.schemas import CreateAuthor
 
 author_router = APIRouter()
 
-# Dependency to get an async database session
 def get_db():
     with SessionLocal() as db:
         try:
@@ -60,10 +58,10 @@ def update_book(author_id: int, book_update_data: AuthorUpdateModel, db: Session
 
 # Delete a author 
 @author_router.delete("/author/{author_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_book(author_id: int, db: Session = Depends(get_db)):
+def delete_author(author_id: int, db: Session = Depends(get_db)):
     result = db.query(AuthorModel).filter(AuthorModel.id == author_id).first()
     if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Author not found")
 
     db.delete(result)
     db.commit()
