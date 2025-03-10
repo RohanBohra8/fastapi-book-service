@@ -8,7 +8,15 @@ from src.books.schemas import Author, AuthorUpdateModel
 from src.books.models import Author as AuthorModel
 from src.books.schemas import CreateAuthor
 
+
+# auth and autho
+from typing import Annotated
+from fastapi.security import OAuth2PasswordBearer
+
+
 author_router = APIRouter()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def get_db():
     with SessionLocal() as db:
@@ -20,7 +28,7 @@ def get_db():
 
 # Get all authors
 @author_router.get('/author', response_model=List[Author])
-async def get_all_authors(db: Session = Depends(get_db)):
+async def get_all_authors(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)): 
     result = db.query(AuthorModel).all()
     return result
 
